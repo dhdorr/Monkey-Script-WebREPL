@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPL</title>
+
+    <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
+
+    <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<body>
+    <div class="code-content-container" id="codeHome">
+
+        <div class="repl-interface-container">
+            <form hx-put="/repl" class="repl-form" hx-swap="none">
+                <textarea class="repl-box" id="replBox" name="replBox" placeholder="Start coding! Or look below for some examples to try :)"></textarea>
+                <div class="submit-btn-container">
+                    <button type="submit" class="submit-code-btn">Submit Code</button>
+                </div>
+                
+                <!-- <button name="test" hx-get="/test" hx-swap="innerHTML" hx-target="#outputContent" class="test-btn" id="testBtn">Submit Code</button> -->
+            </form>
+            <br>
+            
+            <div class="response-area-container">
+                <label for="replResponse">Output:</label>
+                <div class="repl-response-container" id="replResponse">
+                    <pre style="text-align: center;">
+   __  __             _              
+  |  \/  | ___  _ __ | | _____ _   _ 
+  | |\/| |/ _ \| '_ \| |/ / _ \ | | |
+  | |  | | (_) | | | |   <  __/ |_| |
+  |_|  |_|\___/|_| |_|_|\_\___|\__, |
+                               |___/ 
+ **************************************
+                    </pre>
+                    <table class="output-table">
+                        <tbody id="swapOutput">
+                        </tbody>
+                    </table>
+                    <!-- <code class="output-content" id="outputContent">4</code> <br> -->
+                </div>
+            </div>
+            
+            <!-- <p class="output-content" id="outputContent"></p> -->
+        </div>
+        
+        
+        <div class="history-container">
+            <h3>History</h3>
+            <table class="history-table">
+                <tbody id="testSwappers">
+                    <tr>
+                        <td>>></td>
+                        <td>Monkey</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+        <script>
+            document.body.addEventListener('myEvent', function(evt) {
+                console.log(evt.detail.value);
+                let temp2 = document.getElementById("testSwappers");
+                let new_row = document.createElement("tr");
+                let new_point = document.createElement("td");
+                new_point.innerText = ">>";
+                let new_history = document.createElement("td");
+                new_history.innerText = evt.detail.value;
+                new_row.appendChild(new_point);
+                new_row.appendChild(new_history);
+                temp2.prepend(new_row);
+                temp2.scrollTop = temp2.scrollHeight;
+                // temp2.appendChild(new_row);
+            });
+
+            document.body.addEventListener('myEvent2', function(evt) {
+                console.log(evt.detail.value);
+                let temp2 = document.getElementById("swapOutput");
+                let new_row = document.createElement("tr");
+                let new_point = document.createElement("td");
+                new_point.innerText = ">>  ";
+                let new_output = document.createElement("td");
+                let new_code = document.createElement("code");
+                new_code.innerText = evt.detail.value;
+                new_output.appendChild(new_code);
+                new_row.appendChild(new_point);
+                new_row.appendChild(new_output);
+                temp2.append(new_row);
+                temp2.scrollTop = temp2.scrollHeight;
+                temp2.scrollIntoView( { behavior:"instant", block:"end" } );
+                // temp2.appendChild(new_row);
+            });
+        </script>
+
+        <!-- <div class="table-of-contents-container">
+            <h3>Contents</h3>
+            <ul>
+                <li>
+                    <a href="#">Repl</a>
+                </li>
+                <li>
+                    <a href="#docs">Documentation</a>
+                </li>
+                <li>
+                    <a href="#examples">Examples</a>
+                </li>
+                <li>
+                    <a href="#credits">Credits</a>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+    
+</body>
+</html>
