@@ -45,7 +45,7 @@ func Start(in io.Reader, out io.Writer, test_map *object.Environment, session_id
 	result := "\n"
 	if evaluated != nil {
 		result = evaluated.Inspect()
-		fmt.Printf(">> %s\n", result)
+		fmt.Printf("checking result >> %s\n", result)
 		// io.WriteString(out, evaluated.Inspect())
 		io.WriteString(out, "\n")
 	}

@@ -97,11 +97,13 @@ var builtins = map[string]*object.Builtin{
 	},
 	"puts": &object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
+			new_str := ""
 			for _, arg := range args {
-				fmt.Println(arg.Inspect())
+				new_str += arg.Inspect()
+				fmt.Println(new_str)
 			}
 
-			return NULL
+			return &object.String{Value: new_str}
 		},
 	},
 	"meaning_of_life": &object.Builtin{
