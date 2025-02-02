@@ -219,9 +219,14 @@ label {
     grid-column: 1 / 3;
 }
 
+.four {
+    grid-column: 1 / 3;
+    grid-row: 3;
+}
+
 .documentation-container {
     color: white;
-    margin: 10px;
+    margin: 0px 10px 0px 10px;
     font-size: 18px;
 }
 
@@ -271,4 +276,20 @@ p {
 
 .output-table tbody tr td{
     vertical-align: top;
+}
+
+.countdown-timer {
+    font-size: 48px;
+    color: white;
+}
+
+.timer-container {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+.timer-label {
+    font-size: xx-large;
+    color:white;
 }

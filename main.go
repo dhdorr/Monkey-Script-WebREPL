@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"os/user"
+	"time"
 )
 
 type TestStruct struct {
@@ -49,6 +50,25 @@ func main() {
 			}
 			delete_me_arr = append(delete_me_arr, session_id)
 
+			// start a timer, delete from map when timer times out
+			timer1 := time.NewTimer(1 * time.Hour)
+			go func() {
+
+				<-timer1.C
+				fmt.Println("SESSION OVER: Timer 1 fired...")
+				s := delete_me_arr[0]
+				delete(test_map, s)
+				if len(delete_me_arr) == 1 {
+					delete_me_arr = nil
+				} else {
+					delete_me_arr = append(delete_me_arr[:0], delete_me_arr[1:]...)
+				}
+
+				fmt.Println("session is over: deleting from slice and map")
+				fmt.Printf("new test_map: %v\n", test_map)
+				fmt.Printf("new delete_me_arr: %v\n", delete_me_arr)
+			}()
+
 			fmt.Printf("test_map: %v\n", test_map)
 			fmt.Printf("delete_me_arr: %v\n", delete_me_arr)
 		}
@@ -56,10 +76,10 @@ func main() {
 		fmt.Printf("Hello %s! This is the Monkey programming language!\n", user.Username)
 		fmt.Printf("Your Session ID: %s\n", session_id)
 		fmt.Printf("Feel free to type in commands\n")
-		code := `let x = 7
-		puts(x)`
-		apb := repl.Start(os.Stdin, os.Stdout, test_map[session_id], session_id, code)
-		fmt.Println(apb + "\n")
+		// code := `let x = 7;
+		// puts(x);`
+		// apb := repl.Start(os.Stdin, os.Stdout, test_map[session_id], session_id, code)
+		// fmt.Println(apb + "\n")
 
 		http.SetCookie(w, &http.Cookie{
 			Name:     "session_id",
@@ -78,39 +98,39 @@ func main() {
 		// http.ServeFile(w, r, "static/html/repl.html")
 	})
 
-	http.HandleFunc("GET /test", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Printf("Hello! TESTING!\n")
-		// mapD := map[string]int{"apple": 5, "lettuce": 7}
-		// mapB, _ := json.Marshal(mapD)
+	// http.HandleFunc("GET /test", func(w http.ResponseWriter, r *http.Request) {
+	// 	fmt.Printf("Hello! TESTING!\n")
+	// 	// mapD := map[string]int{"apple": 5, "lettuce": 7}
+	// 	// mapB, _ := json.Marshal(mapD)
 
-		// w.Write(mapB)
-		c, err := r.Cookie("session_id")
-		if err != nil {
-			log.Fatal(err)
-		}
-		code := "x;"
+	// 	// w.Write(mapB)
+	// 	c, err := r.Cookie("session_id")
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	code := "x;"
 
-		for k := range test_map {
-			fmt.Printf("key[%s]\n", k)
-			//t := test_map[k]
-			//k := *t
+	// 	for k := range test_map {
+	// 		fmt.Printf("key[%s]\n", k)
+	// 		//t := test_map[k]
+	// 		//k := *t
 
-		}
+	// 	}
 
-		fmt.Printf("cookie: %s", c.Value)
-		helpme := repl.Start(os.Stdin, os.Stdout, test_map[c.Value], c.Value, code)
+	// 	fmt.Printf("cookie: %s", c.Value)
+	// 	helpme := repl.Start(os.Stdin, os.Stdout, test_map[c.Value], c.Value, code)
 
-		tmpl, err := template.ParseFiles("./static/html/test_response.html")
-		if err != nil {
-			log.Fatal(err)
-		}
-		data := TestStruct{
-			Test: helpme,
-		}
+	// 	tmpl, err := template.ParseFiles("./static/html/test_response.html")
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	data := TestStruct{
+	// 		Test: helpme,
+	// 	}
 
-		tmpl.Execute(w, data)
+	// 	tmpl.Execute(w, data)
 
-	})
+	// })
 
 	http.HandleFunc("PUT /repl", func(w http.ResponseWriter, r *http.Request) {
 
@@ -153,5 +173,9 @@ func main() {
 	// Add this line to serve static files
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":8080", nil)
 }
+
+// func start_timer(index int, session_id string) {
+
+// }

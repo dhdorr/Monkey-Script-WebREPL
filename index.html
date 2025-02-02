@@ -39,7 +39,30 @@
                 </div>
             </div>
 
-            <div class="documentation-container two">
+            <div class="timer-container">
+                <label for="timer" class="timer-label">Session Timer:</label>
+                <div id="timer" name="timer" class="countdown-timer two">1 Hour</div>
+            </div>
+            
+            <script>
+                document.getElementById('createButton').addEventListener('click', () => {
+                    let timeLeft = 60 * 60; // 1 hour in seconds
+                    const countdownInterval = setInterval(() => {
+                        timeLeft--;
+                        let time_mins = timeLeft / 60;
+                        document.getElementById("timer").innerText = Math.round(time_mins).toString() + " Minutes Remaining";
+                        console.log(`Time left: ${timeLeft} seconds`);
+
+                        if (timeLeft <= 0) {
+                            clearInterval(countdownInterval);
+                            console.log("Time's up!");
+                        }
+                    }, 1000); // Update every second
+                });
+                
+            </script>
+
+            <div class="documentation-container four">
                 <h1 id="docs">Documentation</h1>
                 <h2>MonkeyScript Web CLI</h2>
                 <p>This is an implementation of the MonkeyScript programming language from the book {link me} Writing an Interpreter in GO by Thornsten Ball. I thought it would be cool to turn the REPL project from the book into a Web CLI so anyone can try out MonkeyScript from anywhere!</p>
