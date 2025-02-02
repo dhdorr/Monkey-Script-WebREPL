@@ -41,7 +41,7 @@ func main() {
 		if !ok {
 			test_map[session_id] = object.NewEnvironment()
 			// add session id to queue, once full, start deleting from test_map
-			if len(delete_me_arr) >= 50 {
+			if len(delete_me_arr) >= 90 {
 				s := delete_me_arr[0]
 				delete_me_arr = append(delete_me_arr[:0], delete_me_arr[1:]...)
 				delete(test_map, s)
