@@ -173,9 +173,5 @@ func main() {
 	// Add this line to serve static files
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8000", nil)
 }
-
-// func start_timer(index int, session_id string) {
-
-// }

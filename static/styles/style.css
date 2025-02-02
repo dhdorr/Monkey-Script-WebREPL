@@ -8,6 +8,14 @@ label {
     font-size: larger;
 }
 
+a {
+    color: aquamarine;
+}
+
+a:hover {
+    color: #2e74f5;
+}
+
 .login-container {
     display: flex;
     margin: 50px;
@@ -199,11 +207,12 @@ label {
 
 .table-of-contents-container ul li a {
     text-decoration: none;
-    color: #2e74f5;
+    /* color: #2e74f5; */
 }
 .table-of-contents-container ul li a:hover{
     text-decoration: none;
-    color: #2f4bc5;
+    color: #2e74f5;
+    /* color: #2f4bc5; */
 }
 
 .one {
