@@ -284,6 +284,10 @@ p {
     font-size: 18px;
 }
 
+.output-table tbody tr td:nth-child(2) {
+    padding-left: 10px;
+}
+
 .output-table tbody tr td{
     vertical-align: top;
 }

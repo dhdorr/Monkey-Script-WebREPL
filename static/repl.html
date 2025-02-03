@@ -37,6 +37,14 @@
                     </pre>
                     <table class="output-table">
                         <tbody id="swapOutput">
+                            <tr>
+                                <td>
+                                    >>
+                                </td>
+                                <td> 
+
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <!-- <code class="output-content" id="outputContent">4</code> <br> -->
@@ -79,7 +87,7 @@
                 let temp2 = document.getElementById("swapOutput");
                 let new_row = document.createElement("tr");
                 let new_point = document.createElement("td");
-                new_point.innerText = ">>  ";
+                new_point.innerText = ">>";
                 let new_output = document.createElement("td");
                 let new_code = document.createElement("code");
                 new_code.innerText = evt.detail.value;
