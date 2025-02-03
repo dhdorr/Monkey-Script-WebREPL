@@ -633,10 +633,48 @@ p {
     };
     
     .top-nav {
-        font-size: 30px;
+        font-size: 22px;
     }
 
     .example-list {
         padding: 10px;
+    }
+
+    .code-content-container {
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 2px;
+        margin: 2px;
+        height: 100vh;
+    }
+
+    .repl-interface-container {
+        grid-row: 1;
+        height: auto;
+        justify-content:unset;
+    }
+
+    .response-area-container label {
+        margin-left: 20px;
+    }
+
+    .history-container {
+        height: 100%;
+        margin-bottom: 0px;
+        grid-row: 2;
+    }
+
+    .repl-response-container {
+        max-height: 150px;
+    }
+
+    .history-container {
+        max-height: unset;
+    }
+    
+    body {
+        overflow-x: hidden;
     }
   }
